@@ -6,7 +6,7 @@
 /*   By: rusoares <rusoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 10:17:01 by rusoares          #+#    #+#             */
-/*   Updated: 2024/05/13 10:52:26 by rusoares         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:53:32 by rusoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,13 @@ char	*ft_getleft(char *left)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (left[i] && left[i] != '\n')
-		i++;
+	i = ft_strlen(left, '\n');
 	if (!left[i])
 	{
 		free(left);
 		return (NULL);
 	}
-	rest = (char *)malloc(sizeof(char) * (ft_strlen(left) - i + 1));
+	rest = (char *)malloc(sizeof(char) * (ft_strlen(left, '\0') - i + 1));
 	if (!rest)
 		return (NULL);
 	i++;
@@ -104,3 +102,24 @@ char	*ft_getleft(char *left)
 	free(left);
 	return (rest);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	char	*s;
+	int		i;
+	int		fd;
+
+	i = 0;
+	fd = open ("./text/Texto1.txt", O_RDONLY);
+	s = get_next_line(fd);
+	while (s)
+	{
+		printf("Line: %d, \n%s", i, s);
+		s = get_next_line(fd);
+		i++;
+	}
+	return (0);
+}
+*/
