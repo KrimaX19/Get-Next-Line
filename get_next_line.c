@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rusoares <rusoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 13:13:48 by rusoares          #+#    #+#             */
-/*   Updated: 2024/05/21 23:14:26 by rusoares         ###   ########.fr       */
+/*   Created: 2024/05/09 10:17:01 by rusoares          #+#    #+#             */
+/*   Updated: 2024/05/21 23:14:10 by rusoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*left[1024];
+	static char	*left;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	left[fd] = read_function (fd, left[fd]);
-	if (!left[fd])
+	left = read_function (fd, left);
+	if (!left)
 		return (NULL);
-	line = ft_getline(left[fd]);
-	left[fd] = ft_getleft(left[fd]);
+	line = ft_getline(left);
+	left = ft_getleft(left);
 	return (line);
 }
 
@@ -84,6 +84,7 @@ char	*ft_getleft(char *left)
 	char	*rest;
 	int		i;
 	int		j;
+	int		l;
 
 	i = ft_strlen(left, '\n');
 	if (!left[i])
@@ -91,9 +92,13 @@ char	*ft_getleft(char *left)
 		free(left);
 		return (NULL);
 	}
-	rest = (char *)malloc(sizeof(char) * (ft_strlen(left, '\0') - i + 1));
+	l = ft_strlen(left, '\0');
+	rest = (char *)malloc(sizeof(char) * (l - i + 1));
 	if (!rest)
+	{
+		free(rest);
 		return (NULL);
+	}
 	i++;
 	j = 0;
 	while (left[i])
