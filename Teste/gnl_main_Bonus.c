@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "../get_next_line.h"
+
 
 int	main(void)
 {
@@ -15,11 +19,11 @@ int	main(void)
 	int		fd5;
 
 	i = 1;
-	fd1 = open ("./text/Texto1.txt", O_RDONLY);
-	fd2 = open ("./text/Texto2.txt", O_RDONLY);
-	fd3 = open ("./text/Texto3.txt", O_RDONLY);
-	fd4 = open ("./text/Texto4.txt", O_RDONLY);
-	fd5 = open ("./text/Texto5.txt", O_RDONLY);
+	fd1 = open ("./Teste/text/Texto1.txt", O_RDONLY);
+	fd2 = open ("./Teste/text/Texto2.txt", O_RDONLY);
+	fd3 = open ("./Teste/text/Texto3.txt", O_RDONLY);
+	fd4 = open ("./Teste/text/Texto4.txt", O_RDONLY);
+	fd5 = open ("./Teste/text/Texto5.txt", O_RDONLY);
 	s1 = get_next_line(fd1);
 	s2 = get_next_line(fd2);
 	s3 = get_next_line(fd3);
@@ -27,15 +31,15 @@ int	main(void)
 	s5 = get_next_line(fd5);
 	while (i <= 10)
 	{
-		printf("\nFD: %d\nLine: %d, \n%s\n",fd1, i, s1);
+		printf("||||||||||\n||||||||||\nFD: %d Line: %d, \n%s\n",fd1, i, s1);
+		printf("FD: %d Line: %d, \n%s\n",fd2, i, s2);
+		printf("FD: %d Line: %d, \n%s\n",fd3, i, s3);
+		printf("FD: %d Line: %d, \n%s\n",fd4, i, s4);
+		printf("FD: %d Line: %d, \n%s\n",fd5, i, s5);;
 		s1 = get_next_line(fd1);
-		printf("FD: %d\nLine: %d, \n%s\n",fd2, i, s2);
 		s2 = get_next_line(fd2);
-		printf("FD: %d\nLine: %d, \n%s\n",fd3, i, s3);
 		s3 = get_next_line(fd3);
-		printf("FD: %d\nLine: %d, \n%s\n",fd4, i, s4);
 		s4 = get_next_line(fd4);
-		printf("FD: %d\nLine: %d, \n%s\n",fd5, i, s5);;
 		s5 = get_next_line(fd5);
 		i++;
 	}
